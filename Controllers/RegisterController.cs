@@ -59,7 +59,7 @@ namespace IdentityEmail.Controllers
                 SmtpClient smtpClient = new SmtpClient();// SmtpClient .net li olmayanı seç mailkit
 
                 smtpClient.Connect("smtp.gmail.com", 587, false);
-                smtpClient.Authenticate("ipekgg89@gmail.com", "xfbj lbbb opod wemi");
+                smtpClient.Authenticate("ipekgg89@gmail.com", "xfbj lbbmi");
                 smtpClient.Send(mimeMessage); // smtpClient SEND  satırını sil bi daha yaz send için .net li olmayanı seç
 
                 smtpClient.Disconnect(true);
