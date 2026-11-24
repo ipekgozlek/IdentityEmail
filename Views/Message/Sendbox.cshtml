@@ -1,0 +1,28 @@
+﻿@model List<IdentityEmail.Entities.Message>
+
+@{
+    ViewData["Title"] = "Sendbox";
+    Layout = "~/Views/MessageLayout/Index.cshtml";
+}
+
+<h1>Sendbox</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Receiver Email</th>
+            <th>Subject</th>
+            <th>Send Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ReceiverEmail</td>
+                <td>@item.Subject</td>
+                <td>@item.SendDate.ToString("dd.MM.yyyy HH:mm")</td>
+            </tr>
+        }
+    </tbody>
+</table>
