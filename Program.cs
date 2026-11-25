@@ -28,6 +28,7 @@ app.UseHttpsRedirection();
 app.UseStatusCodePagesWithReExecute("/ErrorPages/Page{0}", "?statusCode={0}");
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
