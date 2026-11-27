@@ -2,6 +2,7 @@
 using IdentityEmail.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityEmail.Controllers
 {
@@ -16,19 +17,21 @@ namespace IdentityEmail.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Inbox()
+        public async Task<IActionResult> Inbox()
         {
-            var values = _context.Messages.ToList();
-            return View(values);
+            var value = await _userManager.GetUserAsync(User);
+            var messageInboxList = await _context.Messages.Where(x => x.ReceiverEmail == value.Email).OrderByDescending(x => x.SendDate).ToListAsync();
+            return View(messageInboxList);
         }
         public async Task<IActionResult> Sendbox()
         {
             var value = await _userManager.GetUserAsync(User);
-            var messageList = _context.Messages.Where(x => x.SenderEmail == value.Email).ToList();
+            var messageList = await _context.Messages.Where(x => x.SenderEmail == value.Email).OrderByDescending(x => x.SendDate).ToListAsync();
             return View(messageList);
         }
         public IActionResult CreateMessage()
         {
+
             return View();
         }
 
@@ -45,7 +48,7 @@ namespace IdentityEmail.Controllers
 
             _context.Messages.Add(message);
 
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
             return RedirectToAction("Sendbox");
         }
     }
